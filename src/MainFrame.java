@@ -2,6 +2,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionAdapter;
 import java.util.Random;
 
 public class MainFrame extends JFrame {
@@ -29,10 +31,9 @@ class GameScreen extends JPanel {
     Random rand = new Random();
     int vel = rand.nextInt(3);
     int y = 0;
-    int obWidth = rand.nextInt(getWidth() / 12) + 20;
-    int obHeight = rand.nextInt(3 * getHeight());
-    int x = rand.nextInt(getWidth() - obWidth);
-    ObstacleRect[] possible = new ObstacleRect[10];
+    int x = 0;
+
+    ObstacleRect[] possible = new ObstacleRect[];
 
     public GameScreen() {
 
@@ -53,6 +54,16 @@ class GameScreen extends JPanel {
     public class TimerListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
+            addMouseMotionListener(new MouseMotionAdapter() {
+                @Override
+                public void mouseMoved(MouseEvent e) {
+
+                    x = e.getX();
+                    y = e.getY();
+                    repaint();
+
+                }
+            });
 
 
 
