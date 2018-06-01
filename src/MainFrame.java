@@ -32,8 +32,9 @@ class GameScreen extends JPanel {
     int vel = rand.nextInt(3);
     int y = 0;
     int x = 0;
+ //   ObstacleRect p = new ObstacleRect(x,y,20,100);
 
-    ObstacleRect[] possible = new ObstacleRect[];
+//    ObstacleRect[] possible = new ObstacleRect[];
 
     public GameScreen() {
 
@@ -44,7 +45,10 @@ class GameScreen extends JPanel {
 
     protected void paintComponent(Graphics g) {
 
+
         g.setColor(Color.BLACK);
+        g.fillRect(x,y,20,100);
+
 
 
 
@@ -60,7 +64,7 @@ class GameScreen extends JPanel {
 
                     x = e.getX();
                     y = e.getY();
-                    repaint();
+
 
                 }
             });
