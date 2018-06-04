@@ -1,5 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.dnd.DragSource;
+import java.awt.dnd.MouseDragGestureRecognizer;
 import java.awt.event.*;
 import java.util.Random;
 
@@ -8,7 +10,10 @@ public class MainFrame extends JFrame {
     public MainFrame() {
 
         setTitle("Beats");
-        add (new GameScreen());
+        GameScreen gs = new GameScreen();
+        this.addMouseListener(gs);
+        this.addMouseMotionListener(gs);
+        //add (new GameScreen());
 
     }
 
@@ -28,17 +33,23 @@ class GameScreen extends JPanel {
         addMouseMotionListener(new MouseMotionAdapter() {
             @Override
             public void mouseMoved(MouseEvent e) {
+                super.mouseMoved(e);
 
                 x = e.getX();
                 y = e.getY();
                 repaint();
             }
+
         });
+
         addMouseListener(new MouseAdapter() {
             @Override
             public void mouseDragged(MouseEvent e) {
+                super.mouseDragged(e);
+
                 x = e.getX();
                 y = e.getY();
+                repaint();
             }
         });
 
@@ -50,7 +61,7 @@ class GameScreen extends JPanel {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
 
-        g.fillRect(x, y, 2, 2);
+        g.fillRect(x, y, 20, 20);
     }
 }
 /*
