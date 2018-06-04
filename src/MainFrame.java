@@ -1,9 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseMotionAdapter;
+import java.awt.event.*;
 import java.util.Random;
 
 public class MainFrame extends JFrame {
@@ -25,7 +22,38 @@ public class MainFrame extends JFrame {
 }
 
 class GameScreen extends JPanel {
+    int x = 0, y = 0;
 
+    protected GameScreen(){
+        addMouseMotionListener(new MouseMotionAdapter() {
+            @Override
+            public void mouseMoved(MouseEvent e) {
+
+                x = e.getX();
+                y = e.getY();
+                repaint();
+            }
+        });
+        addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseDragged(MouseEvent e) {
+                x = e.getX();
+                y = e.getY();
+            }
+        });
+
+
+    }
+
+
+    /** Draws the panel! */
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+
+        g.fillRect(x, y, 2, 2);
+    }
+}
+/*
     Timer timer = new Timer(200, new TimerListener());
 
     Random rand = new Random();
@@ -65,13 +93,13 @@ class GameScreen extends JPanel {
                     x = e.getX();
                     y = e.getY();
 
-
+                    repaint();
                 }
             });
 
 
 
-            repaint();
+
         }
-    }
-}
+*/
+
