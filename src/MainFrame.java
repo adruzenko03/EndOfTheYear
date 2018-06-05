@@ -1,8 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.dnd.DragSource;
-import java.awt.dnd.MouseDragGestureRecognizer;
 import java.awt.event.*;
+import java.util.ArrayList;
 import java.util.Random;
 
 public class MainFrame extends JFrame {
@@ -10,10 +9,9 @@ public class MainFrame extends JFrame {
     public MainFrame() {
 
         setTitle("Beats");
-        GameScreen gs = new GameScreen();
-        this.addMouseListener(gs);
-        this.addMouseMotionListener(gs);
-        //add (new GameScreen());
+
+
+        add (new GameScreen());
 
     }
 
@@ -27,41 +25,43 @@ public class MainFrame extends JFrame {
 }
 
 class GameScreen extends JPanel {
-    int x = 0, y = 0;
+    int x, y;
+    ArrayList<Integer> xList = new ArrayList<>();
+    ArrayList<Integer> yList = new ArrayList<>();
+    ArrayList<Integer> hList = new ArrayList<>();
+    ArrayList<Integer> wList = new ArrayList<>();
 
-    protected GameScreen(){
-        addMouseMotionListener(new MouseMotionAdapter() {
-            @Override
-            public void mouseMoved(MouseEvent e) {
-                super.mouseMoved(e);
-
-                x = e.getX();
-                y = e.getY();
-                repaint();
-            }
-
-        });
-
-        addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseDragged(MouseEvent e) {
-                super.mouseDragged(e);
-
-                x = e.getX();
-                y = e.getY();
-                repaint();
-            }
-        });
-
-
+    public GameScreen() {
+        mouse gs = new mouse();
+        this.addMouseListener(gs);
+        this.addMouseMotionListener(gs);
     }
 
-
-    /** Draws the panel! */
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
 
         g.fillRect(x, y, 20, 20);
+
+    }
+
+
+    class mouse extends MouseAdapter {
+
+        @Override
+        public void mouseDragged(MouseEvent e) {
+            x = e.getX();
+            y = e.getY();
+
+            repaint();
+
+        }
+
+        @Override
+        public void mouseMoved(MouseEvent e) {
+            x = e.getX();
+            y = e.getY();
+            repaint();
+        }
     }
 }
 /*
