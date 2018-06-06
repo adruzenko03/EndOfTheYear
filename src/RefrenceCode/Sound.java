@@ -23,16 +23,26 @@ public class Sound {
         }}
     public static void music(){
         AudioPlayer BGP = AudioPlayer.player;
-        AudioStream BGM;
+        //AudioStream BGM;
         AudioData MD;
         ContinuousAudioDataStream loop = null;
         try {
+            String gongFile = "wiiMusic.wav";
+            InputStream in = new FileInputStream(gongFile);
+
+            // create an audiostream from the inputstream
+            AudioStream audioStream = new AudioStream(in);
+            MD = audioStream.getData();
+
+
             //InputStream test = new FileInputStream("C:\\ wiiMusic.wav");
             //BGM = new AudioStream(test);
-            BGM = new AudioStream(new FileInputStream("wiiMusic.wav"));
-            MD = BGM.getData();
+            /*BGM = new AudioStream(new FileInputStream("wiiMusic.wav"));
+            MD = BGM.getData();*/
             loop = new ContinuousAudioDataStream(MD);
-        }catch(IOException error) {}
+        }catch(IOException error) {
+            System.out.println("Error");
+        }
         BGP.start(loop);
     }
 }
