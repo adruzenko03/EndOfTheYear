@@ -10,8 +10,6 @@ public class MainFrame extends JFrame {
     public MainFrame() {
 
         setTitle("Beats");
-
-
         add (new GameScreen());
 
     }
@@ -32,6 +30,14 @@ class GameScreen extends JPanel {
     ArrayList<Integer> hList = new ArrayList<>();
     ArrayList<Integer> wList = new ArrayList<>();
 
+    Random boi = new Random();
+    int obX = boi.nextInt(500);
+    int obY = 0;
+    int obH = boi.nextInt(30) + 20;
+    int obW = boi.nextInt(30) + 20;
+
+    Timer 타이모 = new Timer(300, new TimerListener());
+
     public GameScreen() {
         mouse gs = new mouse();
         this.addMouseListener(gs);
@@ -42,6 +48,10 @@ class GameScreen extends JPanel {
         super.paintComponent(g);
 
         g.fillRect(x, y, 20, 20);
+
+    }
+
+    public void drawObstacles (Graphics g) {
 
     }
 
@@ -64,7 +74,20 @@ class GameScreen extends JPanel {
             repaint();
         }
     }
+
+    public class TimerListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+
+            xList.add(obX);
+            yList.add(obY);
+            hList.add(obH);
+            wList.add(obW);
+
+        }
+    }
 }
+
 /*
     Timer timer = new Timer(200, new TimerListener());
 
@@ -90,8 +113,6 @@ class GameScreen extends JPanel {
         g.fillRect(x,y,20,100);
 
 
-
-
     }
 
 
@@ -108,9 +129,6 @@ class GameScreen extends JPanel {
                     repaint();
                 }
             });
-
-
-
 
         }
 */
