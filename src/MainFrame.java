@@ -38,6 +38,7 @@ public class MainFrame extends JFrame {
 
 class GameScreen extends JPanel {
     int x, y;
+    boolean end = false;
     ArrayList<Integer> xList = new ArrayList<>();
     ArrayList<Integer> yList = new ArrayList<>();
     ArrayList<Integer> hList = new ArrayList<>();
@@ -62,11 +63,16 @@ class GameScreen extends JPanel {
 
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
+        if (!end) {
 
-        g.fillRect(x, y, 20, 20);
+            g.fillRect(x, y, 20, 20);
 
-        drawObstacles(g);
-
+            drawObstacles(g);
+        }
+        else {
+            g.setColor(Color.WHITE);
+            g.fillRect(0,0,getWidth(),getHeight());
+        }
     }
 
 
@@ -89,9 +95,7 @@ class GameScreen extends JPanel {
             y = e.getY();
             for (int i = 0; i < xList.size(); i++) {
                 if (x < xList.get(i) + wList.get(i) && x > xList.get(i) && y < yList.get(i) + hList.get(i) && y < yList.get(i) + hList.get(i)) {
-                    timer.stop();
-                    getGraphics().setColor(Color.WHITE);
-                    getGraphics().fillRect(0, 0, getWidth(), getHeight());
+                        end = true;
                 }
             }
 
@@ -105,9 +109,7 @@ class GameScreen extends JPanel {
             y = e.getY();
             for (int i = 0; i < xList.size(); i++) {
                 if (x < xList.get(i) + wList.get(i) && x > xList.get(i) && y < yList.get(i) + hList.get(i) && y < yList.get(i) + hList.get(i)) {
-                    timer.stop();
-                    getGraphics().setColor(Color.WHITE);
-                    getGraphics().fillRect(0, 0, getWidth(), getHeight());
+                    end = true;
                 }
             }
             repaint();
@@ -119,14 +121,16 @@ class GameScreen extends JPanel {
     public class TimerListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
+            if (!end) {
 
-            xList.add(obX);
-            yList.add(obY);
-            hList.add(obH);
-            wList.add(obW);
+                xList.add(obX);
+                yList.add(obY);
+                hList.add(obH);
+                wList.add(obW);
 
-            for (int d = 0; d < xList.size(); d++) {
-                yList.set(d, yList.get(d) + 20);
+                for (int d = 0; d < xList.size(); d++) {
+                    yList.set(d, yList.get(d) + 20);
+                }
             }
 
 
