@@ -35,13 +35,16 @@ class GameScreen extends JPanel {
     int obY = 0;
     int obH = boi.nextInt(30) + 20;
     int obW = boi.nextInt(30) + 20;
+    Color colour = new Color(boi.nextInt(255), boi.nextInt(255), boi.nextInt(255));
 
-    Timer 타이모 = new Timer(300, new TimerListener());
+    Timer timer = new Timer(50, new TimerListener());
 
     public GameScreen() {
         mouse gs = new mouse();
         this.addMouseListener(gs);
         this.addMouseMotionListener(gs);
+
+        timer.start();
     }
 
     protected void paintComponent(Graphics g) {
@@ -49,10 +52,18 @@ class GameScreen extends JPanel {
 
         g.fillRect(x, y, 20, 20);
 
+        drawObstacles(g);
+
     }
+
 
     public void drawObstacles (Graphics g) {
 
+        for (int i = 0; i < xList.size(); i++) {
+            g.setColor(colour);
+            g.fillRect(xList.get(i), yList.get(i), wList.get(i), hList.get(i));
+
+        }
     }
 
 
@@ -83,6 +94,14 @@ class GameScreen extends JPanel {
             yList.add(obY);
             hList.add(obH);
             wList.add(obW);
+
+            for (int d = 0;d < xList.size(); d++) {
+                yList.set(d, yList.get(d) + 20);
+            }
+
+
+            repaint();
+
 
         }
     }
