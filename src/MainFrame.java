@@ -1,6 +1,8 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.FileInputStream;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Random;
 import sun.audio.*;
@@ -14,7 +16,18 @@ public class MainFrame extends JFrame {
 
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception{
+
+        AudioPlayer MGP = AudioPlayer.player;
+        String gongFile = "wiiMusic.wav";
+        InputStream in = new FileInputStream(gongFile);
+
+        // create an audiostream from the inputstream
+        AudioStream audioStream = new AudioStream(in);
+
+        // play the audio clip with the audioplayer class
+
+        AudioPlayer.player.start(audioStream);
         JFrame yes = new MainFrame();
         yes.setSize(500, 500);
         yes.setLocationRelativeTo(null);
@@ -67,12 +80,18 @@ class GameScreen extends JPanel {
     }
 
 
+
     class mouse extends MouseAdapter {
 
         @Override
         public void mouseDragged(MouseEvent e) {
             x = e.getX();
             y = e.getY();
+            for(int i = 0; i<xList.size();i++){
+                if (x<xList.get(i)+wList.get(i) && x>xList.get(i) && y<yList.get(i)+hList.get(i) && y<yList.get(i)+hList.get(i)){
+                    System.out.println("Hit");
+                }
+            }
 
             repaint();
 
@@ -82,6 +101,11 @@ class GameScreen extends JPanel {
         public void mouseMoved(MouseEvent e) {
             x = e.getX();
             y = e.getY();
+            for(int i = 0; i<xList.size();i++){
+                if (x<xList.get(i)+wList.get(i) && x>xList.get(i) && y<yList.get(i)+hList.get(i) && y<yList.get(i)+hList.get(i)){
+                    System.out.println("Hit");
+                }
+            }
             repaint();
         }
     }
