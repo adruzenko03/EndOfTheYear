@@ -70,7 +70,7 @@ class GameScreen extends JPanel {
     }
 
 
-    public void drawObstacles (Graphics g) {
+    public void drawObstacles(Graphics g) {
 
         for (int i = 0; i < xList.size(); i++) {
             g.setColor(colour);
@@ -87,9 +87,11 @@ class GameScreen extends JPanel {
         public void mouseDragged(MouseEvent e) {
             x = e.getX();
             y = e.getY();
-            for(int i = 0; i<xList.size();i++){
-                if (x<xList.get(i)+wList.get(i) && x>xList.get(i) && y<yList.get(i)+hList.get(i) && y<yList.get(i)+hList.get(i)){
-                    System.out.println("Hit");
+            for (int i = 0; i < xList.size(); i++) {
+                if (x < xList.get(i) + wList.get(i) && x > xList.get(i) && y < yList.get(i) + hList.get(i) && y < yList.get(i) + hList.get(i)) {
+                    timer.stop();
+                    getGraphics().setColor(Color.WHITE);
+                    getGraphics().fillRect(0, 0, getWidth(), getHeight());
                 }
             }
 
@@ -101,14 +103,18 @@ class GameScreen extends JPanel {
         public void mouseMoved(MouseEvent e) {
             x = e.getX();
             y = e.getY();
-            for(int i = 0; i<xList.size();i++){
-                if (x<xList.get(i)+wList.get(i) && x>xList.get(i) && y<yList.get(i)+hList.get(i) && y<yList.get(i)+hList.get(i)){
-                    System.out.println("Hit");
+            for (int i = 0; i < xList.size(); i++) {
+                if (x < xList.get(i) + wList.get(i) && x > xList.get(i) && y < yList.get(i) + hList.get(i) && y < yList.get(i) + hList.get(i)) {
+                    timer.stop();
+                    getGraphics().setColor(Color.WHITE);
+                    getGraphics().fillRect(0, 0, getWidth(), getHeight());
                 }
             }
             repaint();
         }
+
     }
+
 
     public class TimerListener implements ActionListener {
         @Override
@@ -119,7 +125,7 @@ class GameScreen extends JPanel {
             hList.add(obH);
             wList.add(obW);
 
-            for (int d = 0;d < xList.size(); d++) {
+            for (int d = 0; d < xList.size(); d++) {
                 yList.set(d, yList.get(d) + 20);
             }
 
