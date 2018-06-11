@@ -3,6 +3,8 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
 import java.util.Random;
+
+import javafx.scene.layout.Background;
 import sun.audio.*;
 
 public class MainFrame extends JFrame {
@@ -37,6 +39,8 @@ class GameScreen extends JPanel {
     int obW = boi.nextInt(30) + 20;
     Color colour = new Color(boi.nextInt(255), boi.nextInt(255), boi.nextInt(255));
 
+
+
     Timer timer = new Timer(50, new TimerListener());
 
     public GameScreen() {
@@ -62,6 +66,14 @@ class GameScreen extends JPanel {
         for (int i = 0; i < xList.size(); i++) {
             g.setColor(colour);
             g.fillRect(xList.get(i), yList.get(i), wList.get(i), hList.get(i));
+
+            if (i > 0) {
+                g.setColor(getBackground());
+                g.fillRect(xList.get(i), yList.get(i) - 20, wList.get(i), 20);
+            }
+
+
+
 
         }
     }
@@ -90,13 +102,18 @@ class GameScreen extends JPanel {
         @Override
         public void actionPerformed(ActionEvent e) {
 
-            xList.add(obX);
-            yList.add(obY);
-            hList.add(obH);
-            wList.add(obW);
+            if (!yList.contains(500)) {
+
+                xList.add(obX);
+                yList.add(obY);
+                hList.add(obH);
+                wList.add(obW);
+
+            }
 
             for (int d = 0;d < xList.size(); d++) {
                 yList.set(d, yList.get(d) + 20);
+                System.out.println(yList.get(d));
             }
 
 
@@ -106,49 +123,3 @@ class GameScreen extends JPanel {
         }
     }
 }
-
-/*
-    Timer timer = new Timer(200, new TimerListener());
-
-    Random rand = new Random();
-    int vel = rand.nextInt(3);
-    int y = 0;
-    int x = 0;
- //   ObstacleRect p = new ObstacleRect(x,y,20,100);
-
-//    ObstacleRect[] possible = new ObstacleRect[];
-
-    public GameScreen() {
-
-        timer.start();
-
-    }
-
-
-    protected void paintComponent(Graphics g) {
-
-
-        g.setColor(Color.BLACK);
-        g.fillRect(x,y,20,100);
-
-
-    }
-
-
-    public class TimerListener implements ActionListener {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            addMouseMotionListener(new MouseMotionAdapter() {
-                @Override
-                public void mouseMoved(MouseEvent e) {
-
-                    x = e.getX();
-                    y = e.getY();
-
-                    repaint();
-                }
-            });
-
-        }
-*/
-
