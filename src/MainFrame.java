@@ -29,7 +29,8 @@ public class MainFrame extends JFrame {
 
         AudioPlayer.player.start(audioStream);
         JFrame yes = new MainFrame();
-        yes.setSize(500, 500);
+        yes.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        yes.setUndecorated(true);
         yes.setLocationRelativeTo(null);
         yes.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         yes.setVisible(true);
@@ -38,6 +39,7 @@ public class MainFrame extends JFrame {
 
 class GameScreen extends JPanel {
     int sec;
+    int msec;
     int x, y;
     String ssec;
     boolean end = false;
@@ -73,7 +75,7 @@ class GameScreen extends JPanel {
             g.setColor(Color.black);
             g.setFont(new Font("Times New Roman",Font.BOLD,getHeight()/9));
             g.drawString("Game Over", 3*getWidth()/9,4*getHeight()/9);
-            g.drawString(ssec, 3*getWidth()/9,5*getHeight()/9);
+            g.drawString("You survived " + ssec + " seconds", 3*getWidth()/9,5*getHeight()/9);
         }
     }
 
@@ -116,6 +118,16 @@ class GameScreen extends JPanel {
             }
             repaint();
         }
+        @Override
+        public void mouseEntered(MouseEvent e){
+            timer.start();
+            repaint();
+        }
+        @Override
+        public void mouseExited(MouseEvent e){
+            end = true;
+            repaint();
+        }
 
     }
 
@@ -152,7 +164,10 @@ class GameScreen extends JPanel {
                     xList.set(d, xList.get(d) + xaList.get(d));
 
                 }
-                sec+=1;
+                msec+=1;
+                if (msec%20==0){
+                    sec +=1;
+                }
             }
 
 
