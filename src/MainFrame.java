@@ -37,20 +37,18 @@ public class MainFrame extends JFrame {
 }
 
 class GameScreen extends JPanel {
+    int sec;
     int x, y;
+    String ssec;
     boolean end = false;
     ArrayList<Integer> xList = new ArrayList<>();
     ArrayList<Integer> yList = new ArrayList<>();
     ArrayList<Integer> hList = new ArrayList<>();
     ArrayList<Integer> wList = new ArrayList<>();
+    ArrayList<Integer> xaList = new ArrayList<>();
+    ArrayList<Integer> yaList = new ArrayList<>();
+    ArrayList<Color> cList = new ArrayList<>();
 
-    Random boi = new Random();
-    int obX = boi.nextInt(500);
-    int obY = boi.nextInt(500);
-    int obH = boi.nextInt(30) + 20;
-    int obW = boi.nextInt(30) + 20;
-
-    Color colour = new Color(boi.nextInt(255), boi.nextInt(255), boi.nextInt(255));
 
     Timer timer = new Timer(50, new TimerListener());
 
@@ -65,10 +63,8 @@ class GameScreen extends JPanel {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         FontMetrics fm = g.getFontMetrics();
+        ssec = String.valueOf(sec);
         if (!end) {
-
-            g.fillRect(x, y, 20, 20);
-
             drawObstacles(g);
         }
         else {
@@ -77,6 +73,7 @@ class GameScreen extends JPanel {
             g.setColor(Color.black);
             g.setFont(new Font("Times New Roman",Font.BOLD,getHeight()/9));
             g.drawString("Game Over", 3*getWidth()/9,4*getHeight()/9);
+            g.drawString(ssec, 3*getWidth()/9,5*getHeight()/9);
         }
     }
 
@@ -84,7 +81,7 @@ class GameScreen extends JPanel {
     public void drawObstacles(Graphics g) {
 
         for (int i = 0; i < xList.size(); i++) {
-            g.setColor(colour);
+            g.setColor(cList.get(i));
             g.fillRect(xList.get(i), yList.get(i), wList.get(i), hList.get(i));
 
         }
@@ -99,7 +96,7 @@ class GameScreen extends JPanel {
             x = e.getX();
             y = e.getY();
             for (int i = 0; i < xList.size(); i++) {
-                if (x < xList.get(i) + wList.get(i) && x > xList.get(i) && y < yList.get(i) + hList.get(i) && y < yList.get(i) + hList.get(i)) {
+                if (x < xList.get(i) + wList.get(i) && x > xList.get(i) && y < yList.get(i) + hList.get(i) && y  > yList.get(i)) {
                         end = true;
                 }
             }
@@ -128,14 +125,34 @@ class GameScreen extends JPanel {
         public void actionPerformed(ActionEvent e) {
             if (!end) {
 
+                Random boi = new Random();
+                int obX = boi.nextInt(500);
+                int obY = boi.nextInt(500);
+                int obH = boi.nextInt(30) + 20;
+                int obW = boi.nextInt(30) + 20;
+                int obXa = boi.nextInt(10)-5;
+                int obYa = boi.nextInt(10)-5;
+                if (x < obX + obW + 20 && x > obX-20 && y < obY + obH + 20 && y > obY-20) {
+                    obX = boi.nextInt(500);
+                    obY = boi.nextInt(500);
+                }
+                Color colour = new Color(boi.nextInt(255), boi.nextInt(255), boi.nextInt(255));
+
+
                 xList.add(obX);
                 yList.add(obY);
                 hList.add(obH);
                 wList.add(obW);
+                xaList.add(obXa);
+                yaList.add(obYa);
+                cList.add(colour);
 
                 for (int d = 0; d < xList.size(); d++) {
-                    yList.set(d, yList.get(d) + 20);
+                    yList.set(d, yList.get(d) + yaList.get(d));
+                    xList.set(d, xList.get(d) + xaList.get(d));
+
                 }
+                sec+=1;
             }
 
 
