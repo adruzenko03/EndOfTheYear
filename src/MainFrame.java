@@ -29,8 +29,7 @@ public class MainFrame extends JFrame {
 
         AudioPlayer.player.start(audioStream);
         JFrame yes = new MainFrame();
-        yes.setExtendedState(JFrame.MAXIMIZED_BOTH);
-        yes.setUndecorated(true);
+        yes.setSize(500,500);
         yes.setLocationRelativeTo(null);
         yes.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         yes.setVisible(true);
@@ -59,7 +58,6 @@ class GameScreen extends JPanel {
         this.addMouseListener(gs);
         this.addMouseMotionListener(gs);
 
-        timer.start();
     }
 
     protected void paintComponent(Graphics g) {
@@ -76,7 +74,6 @@ class GameScreen extends JPanel {
             g.setFont(new Font("Times New Roman",Font.BOLD,getHeight()/9));
             g.drawString("Game Over", 3*getWidth()/9,4*getHeight()/9);
             g.drawString("You survived " + ssec + " seconds", 3*getWidth()/9,5*getHeight()/9);
-
         }
     }
 
@@ -139,8 +136,8 @@ class GameScreen extends JPanel {
             if (!end) {
 
                 Random boi = new Random();
-                int obX = boi.nextInt(2000);
-                int obY = boi.nextInt(1000);
+                int obX = boi.nextInt(500);
+                int obY = boi.nextInt(500);
                 int obH = boi.nextInt(30) + 20;
                 int obW = boi.nextInt(30) + 20;
                 int obXa = boi.nextInt(10)-5;
@@ -178,49 +175,3 @@ class GameScreen extends JPanel {
         }
     }
 }
-
-/*
-    Timer timer = new Timer(200, new TimerListener());
-
-    Random rand = new Random();
-    int vel = rand.nextInt(3);
-    int y = 0;
-    int x = 0;
- //   ObstacleRect p = new ObstacleRect(x,y,20,100);
-
-//    ObstacleRect[] possible = new ObstacleRect[];
-
-    public GameScreen() {
-
-        timer.start();
-
-    }
-
-
-    protected void paintComponent(Graphics g) {
-
-
-        g.setColor(Color.BLACK);
-        g.fillRect(x,y,20,100);
-
-
-    }
-
-
-    public class TimerListener implements ActionListener {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            addMouseMotionListener(new MouseMotionAdapter() {
-                @Override
-                public void mouseMoved(MouseEvent e) {
-
-                    x = e.getX();
-                    y = e.getY();
-
-                    repaint();
-                }
-            });
-
-        }
-*/
-
