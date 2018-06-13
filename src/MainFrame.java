@@ -62,7 +62,8 @@ class GameScreen extends JPanel {
 
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        FontMetrics fm = g.getFontMetrics();
+        Font font = new Font("Times New Roman",Font.BOLD,getHeight()/9);
+        FontMetrics fm = g.getFontMetrics(font);
         ssec = String.valueOf(sec);
         if (!end) {
             drawObstacles(g);
@@ -71,9 +72,9 @@ class GameScreen extends JPanel {
             g.setColor(Color.WHITE);
             g.fillRect(0,0,getWidth(),getHeight());
             g.setColor(Color.black);
-            g.setFont(new Font("Times New Roman",Font.BOLD,getHeight()/9));
-            g.drawString("Game Over", 3*getWidth()/9,4*getHeight()/9);
-            g.drawString("You survived " + ssec + " seconds", 3*getWidth()/9,5*getHeight()/9);
+            g.setFont(font);
+            g.drawString("Game Over", (getWidth() / 2) - (fm.stringWidth("Game Over") / 2),getHeight() / 2 - fm.getAscent() / 2);
+            g.drawString("You survived " + ssec + " seconds", (getWidth() / 2) - (fm.stringWidth("You survived " + ssec + " seconds") / 2),getHeight() / 2 + fm.getAscent() / 2);
         }
     }
 
