@@ -76,6 +76,7 @@ class GameScreen extends JPanel {
             g.setFont(new Font("Times New Roman",Font.BOLD,getHeight()/9));
             g.drawString("Game Over", 3*getWidth()/9,4*getHeight()/9);
             g.drawString("You survived " + ssec + " seconds", 3*getWidth()/9,5*getHeight()/9);
+
         }
     }
 
@@ -138,8 +139,8 @@ class GameScreen extends JPanel {
             if (!end) {
 
                 Random boi = new Random();
-                int obX = boi.nextInt(500);
-                int obY = boi.nextInt(500);
+                int obX = boi.nextInt(2000);
+                int obY = boi.nextInt(1000);
                 int obH = boi.nextInt(30) + 20;
                 int obW = boi.nextInt(30) + 20;
                 int obXa = boi.nextInt(10)-5;
