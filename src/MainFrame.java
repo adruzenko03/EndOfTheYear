@@ -2,6 +2,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Random;
@@ -9,7 +11,7 @@ import sun.audio.*;
 
 public class MainFrame extends JFrame {
 
-    public MainFrame() {
+    public MainFrame() throws Exception{
 
         setTitle("Beats");
         add (new GameScreen());
@@ -18,16 +20,7 @@ public class MainFrame extends JFrame {
 
     public static void main(String[] args) throws Exception{
 
-        AudioPlayer MGP = AudioPlayer.player;
-        String gongFile = "wiiMusic.wav";
-        InputStream in = new FileInputStream(gongFile);
 
-        // create an audiostream from the inputstream
-        AudioStream audioStream = new AudioStream(in);
-
-        // play the audio clip with the audioplayer class
-
-        AudioPlayer.player.start(audioStream);
         JFrame yes = new MainFrame();
         yes.setSize(500,500);
         yes.setLocationRelativeTo(null);
@@ -53,10 +46,28 @@ class GameScreen extends JPanel {
 
     Timer timer = new Timer(50, new TimerListener());
 
-    public GameScreen() {
+    public GameScreen() throws Exception{
         mouse gs = new mouse();
         this.addMouseListener(gs);
         this.addMouseMotionListener(gs);
+        AudioPlayer MGP = AudioPlayer.player;
+        String gongFile = "wiiMusic.wav";
+
+        try {
+            InputStream in = new FileInputStream(gongFile);
+
+            // create an audiostream from the inputstream
+             AudioStream audioStream = new AudioStream(in);
+            AudioPlayer.player.start(audioStream);
+            // play the audio clip with the audioplayer class
+        }
+        catch(FileNotFoundException e){
+            System.out.println("jmghng");
+        }
+        catch (IOException d){
+            System.out.println("woke");
+        }
+
 
     }
 
@@ -73,6 +84,7 @@ class GameScreen extends JPanel {
             g.fillRect(0,0,getWidth(),getHeight());
             g.setColor(Color.black);
             g.setFont(font);
+            AudioPlayer.player.stop();
             g.drawString("Game Over", (getWidth() / 2) - (fm.stringWidth("Game Over") / 2),getHeight() / 2 - fm.getAscent() / 2);
             g.drawString("You survived " + ssec + " seconds", (getWidth() / 2) - (fm.stringWidth("You survived " + ssec + " seconds") / 2),getHeight() / 2 + fm.getAscent() / 2);
         }
