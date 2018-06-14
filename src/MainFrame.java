@@ -1,10 +1,8 @@
+import javax.sound.sampled.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Random;
 import sun.audio.*;
@@ -35,6 +33,7 @@ class GameScreen extends JPanel {
     int x, y;
     String ssec;
     boolean end = false;
+    Sounds sound = new Sounds();
     ArrayList<Integer> xList = new ArrayList<>();
     ArrayList<Integer> yList = new ArrayList<>();
     ArrayList<Integer> hList = new ArrayList<>();
@@ -46,27 +45,11 @@ class GameScreen extends JPanel {
 
     Timer timer = new Timer(50, new TimerListener());
 
-    public GameScreen() throws Exception{
+    public GameScreen(){
         mouse gs = new mouse();
         this.addMouseListener(gs);
         this.addMouseMotionListener(gs);
-        AudioPlayer MGP = AudioPlayer.player;
-        String gongFile = "wiiMusic.wav";
-
-        try {
-            InputStream in = new FileInputStream(gongFile);
-
-            // create an audiostream from the inputstream
-             AudioStream audioStream = new AudioStream(in);
-            AudioPlayer.player.start(audioStream);
-            // play the audio clip with the audioplayer class
-        }
-        catch(FileNotFoundException e){
-            System.out.println("jmghng");
-        }
-        catch (IOException d){
-            System.out.println("woke");
-        }
+        sound.playwiiTheme();
 
 
     }
@@ -84,7 +67,7 @@ class GameScreen extends JPanel {
             g.fillRect(0,0,getWidth(),getHeight());
             g.setColor(Color.black);
             g.setFont(font);
-            AudioPlayer.player.stop();
+            sound.stopwiiTheme();
             g.drawString("Game Over", (getWidth() / 2) - (fm.stringWidth("Game Over") / 2),getHeight() / 2 - fm.getAscent() / 2);
             g.drawString("You survived " + ssec + " seconds", (getWidth() / 2) - (fm.stringWidth("You survived " + ssec + " seconds") / 2),getHeight() / 2 + fm.getAscent() / 2);
         }
@@ -179,7 +162,13 @@ class GameScreen extends JPanel {
                 if (msec%20==0){
                     sec +=1;
                 }
+                for (int i = 0; i < xList.size(); i++) {
+                    if (x < xList.get(i) + wList.get(i) && x > xList.get(i) && y < yList.get(i) + hList.get(i) && y > yList.get(i)) {
+                        end = true;
+                    }
+                }
             }
+
 
 
             repaint();
@@ -187,4 +176,47 @@ class GameScreen extends JPanel {
 
         }
     }
+}
+class Sounds {
+    private String[] files = {"wiiMusic.wav"};
+    private Clip[] clips = new Clip[files.length];
+
+    public Sounds() {
+        try {
+            for (int i=0; i<files.length; i++) {
+                File file = new File(files[i]);
+
+                AudioInputStream audioStream = AudioSystem.getAudioInputStream(file);
+                AudioFormat format = audioStream.getFormat();
+                DataLine.Info info = new DataLine.Info(Clip.class, format, (int) (audioStream.getFrameLength() * format.getFrameSize()));
+                clips[i] = (Clip) AudioSystem.getLine(info);
+                // deathClip.addLineListener(this);
+                clips[i].open(audioStream);
+            }
+        }
+        catch (Exception e) {
+            throw new RuntimeException("Unable to initialize sounds.", e);
+        }
+    }
+
+    void playwiiTheme() {
+        clips[0].loop(20000);
+        clips[0].setFramePosition(0);
+        clips[0].start();
+    }
+    void stopwiiTheme() {
+        clips[0].stop();
+    }
+/*
+    void playJumpClip() {
+        clips[1].setFramePosition(0);
+        clips[1].start();
+    }
+
+    void playTheme() {
+        clips[2].loop(20000);
+        clips[2].setFramePosition(0);
+        clips[2].start();
+    }*/
+
 }
