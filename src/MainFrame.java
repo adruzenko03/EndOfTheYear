@@ -1,11 +1,10 @@
 import javax.sound.sampled.*;
-        import javax.swing.*;
-        import java.awt.*;
-        import java.awt.event.*;
-        import java.io.*;
-        import java.util.ArrayList;
-        import java.util.Random;
-        import sun.audio.*;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+import java.io.*;
+import java.util.ArrayList;
+import java.util.Random;
 
 public class MainFrame extends JFrame {
 
@@ -25,7 +24,7 @@ public class MainFrame extends JFrame {
     public static void main(String[] args) {
 
         JFrame yes = new MainFrame();
-        yes.setSize(600,600);
+        yes.setSize(750,750);
         yes.setLocationRelativeTo(null);
         yes.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         yes.setVisible(true);
@@ -60,7 +59,7 @@ class GameScreen extends JPanel {
 
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        Font font = new Font("Times New Roman",Font.BOLD,getHeight()/9);
+        Font font = new Font("Times New Roman",Font.BOLD,getHeight()/10);
         FontMetrics fm = g.getFontMetrics(font);
         ssec = String.valueOf(sec);
 
@@ -136,16 +135,16 @@ class GameScreen extends JPanel {
             if (!end) {
 
                 Random boi = new Random();
-                int obX = boi.nextInt(500);
-                int obY = boi.nextInt(500);
+                int obX = boi.nextInt(750);
+                int obY = boi.nextInt(750);
                 int obH = boi.nextInt(30) + 20;
                 int obW = boi.nextInt(30) + 20;
                 int obXa = boi.nextInt(10)-5;
                 int obYa = boi.nextInt(10)-5;
 
                 if (x < obX + obW + 20 && x > obX-20 && y < obY + obH + 20 && y > obY-20) {
-                    obX = boi.nextInt(500);
-                    obY = boi.nextInt(500);
+                    obX = boi.nextInt(750);
+                    obY = boi.nextInt(750);
                 }
 
                 Color colour = new Color(boi.nextInt(255), boi.nextInt(255), boi.nextInt(255));
@@ -186,17 +185,30 @@ class MainMenu extends JPanel {
 
     public MainMenu() {
 
-        setLayout(new GridLayout(2, 1));
+        setLayout(new BorderLayout());
 
-        JButton begin = new JButton("Start");
-        JLabel msg = new JLabel("Click Button to Start Game");
+        Font font = new Font("Times New Roman",Font.BOLD,52);
+        Font font2 = new Font("Jokerman",Font.BOLD,78);
+
+        Color colour = new Color(188, 240, 225);
+
+        JButton begin = new JButton("Start!");
+        begin.setFont(font2);
+        begin.setForeground(Color.BLACK);
+        begin.setBackground(colour);
+
+
+        JLabel msg = new JLabel("Click Button to Start Game!");
+        msg.setFont(font);
+        begin.setForeground(Color.BLACK);
+
 
         begin.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
 
                 JFrame yess = new MainFrame(1);
                 yess.setTitle("Let's Play!");
-                yess.setSize(600,600);
+                yess.setSize(750,750);
                 yess.setLocationRelativeTo(null);
                 yess.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 yess.setVisible(true);
@@ -204,8 +216,8 @@ class MainMenu extends JPanel {
 
         });
 
-        add(msg);
-        add(begin);
+        add(msg, BorderLayout.NORTH);
+        add(begin, BorderLayout.CENTER);
 
     }
 
