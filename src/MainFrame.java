@@ -9,9 +9,9 @@ import sun.audio.*;
 
 public class MainFrame extends JFrame {
 
-    public MainFrame() throws Exception{
+    public MainFrame() throws Exception {
 
-        setTitle("Beats");
+        setTitle("Let's Play");
         add (new GameScreen());
 
     }
