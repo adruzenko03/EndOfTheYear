@@ -9,9 +9,9 @@ import sun.audio.*;
 
 public class MainFrame extends JFrame {
 
-    public MainFrame() throws Exception{
+    public MainFrame() throws Exception {
 
-        setTitle("Beats");
+        setTitle("Let's Play");
         add (new GameScreen());
 
     }
@@ -20,7 +20,7 @@ public class MainFrame extends JFrame {
 
 
         JFrame yes = new MainFrame();
-        yes.setSize(500,500);
+        yes.setSize(600,600);
         yes.setLocationRelativeTo(null);
         yes.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         yes.setVisible(true);
@@ -165,12 +165,11 @@ class GameScreen extends JPanel {
                         }
                     }
                 }
+
+
             }
 
-
-
             repaint();
-
 
         }
     }
