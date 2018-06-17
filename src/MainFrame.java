@@ -12,7 +12,6 @@ public class MainFrame extends JFrame {
     public MainFrame()  {
 
         setTitle("Let's Play");
-
         add(new MainMenu());
 
     }
@@ -20,9 +19,10 @@ public class MainFrame extends JFrame {
     public MainFrame(int i) {
 
         add (new GameScreen());
+
     }
 
-    public static void main(String[] args) throws Exception{
+    public static void main(String[] args) {
 
         JFrame yes = new MainFrame();
         yes.setSize(600,600);
