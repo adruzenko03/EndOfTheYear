@@ -9,15 +9,20 @@ import sun.audio.*;
 
 public class MainFrame extends JFrame {
 
-    public MainFrame() throws Exception {
+    public MainFrame()  {
 
         setTitle("Let's Play");
-        add (new GameScreen());
+
+        add(new MainMenu());
 
     }
 
-    public static void main(String[] args) throws Exception{
+    public MainFrame(int i) {
 
+        add (new GameScreen());
+    }
+
+    public static void main(String[] args) throws Exception{
 
         JFrame yes = new MainFrame();
         yes.setSize(600,600);
@@ -51,7 +56,6 @@ class GameScreen extends JPanel {
         this.addMouseMotionListener(gs);
         sound.playwiiTheme();
 
-
     }
 
     protected void paintComponent(Graphics g) {
@@ -59,9 +63,11 @@ class GameScreen extends JPanel {
         Font font = new Font("Times New Roman",Font.BOLD,getHeight()/9);
         FontMetrics fm = g.getFontMetrics(font);
         ssec = String.valueOf(sec);
+
         if (!end) {
             drawObstacles(g);
         }
+
         else {
             g.setColor(Color.WHITE);
             g.fillRect(0,0,getWidth(),getHeight());
@@ -82,8 +88,6 @@ class GameScreen extends JPanel {
 
         }
     }
-
-
 
     class mouse extends MouseAdapter {
 
@@ -138,12 +142,13 @@ class GameScreen extends JPanel {
                 int obW = boi.nextInt(30) + 20;
                 int obXa = boi.nextInt(10)-5;
                 int obYa = boi.nextInt(10)-5;
+
                 if (x < obX + obW + 20 && x > obX-20 && y < obY + obH + 20 && y > obY-20) {
                     obX = boi.nextInt(500);
                     obY = boi.nextInt(500);
                 }
-                Color colour = new Color(boi.nextInt(255), boi.nextInt(255), boi.nextInt(255));
 
+                Color colour = new Color(boi.nextInt(255), boi.nextInt(255), boi.nextInt(255));
 
                 xList.add(obX);
                 yList.add(obY);
@@ -168,7 +173,6 @@ class GameScreen extends JPanel {
                     }
                 }
 
-
             }
 
             repaint();
@@ -176,6 +180,38 @@ class GameScreen extends JPanel {
         }
     }
 }
+
+class MainMenu extends JPanel {
+
+
+    public MainMenu() {
+
+        setLayout(new GridLayout(2, 1));
+
+        JButton begin = new JButton("Start");
+        JLabel msg = new JLabel("Click Button to Start Game");
+
+        begin.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+
+                JFrame yess = new MainFrame(1);
+                yess.setTitle("Let's Play!");
+                yess.setSize(600,600);
+                yess.setLocationRelativeTo(null);
+                yess.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                yess.setVisible(true);
+            }
+
+        });
+
+        add(msg);
+        add(begin);
+
+    }
+
+}
+
+
 class Sounds {
     private String[] files = {"wiiMusic.wav"};
     private Clip[] clips = new Clip[files.length];
