@@ -49,7 +49,7 @@ class GameScreen extends JPanel {
         mouse gs = new mouse();
         this.addMouseListener(gs);
         this.addMouseMotionListener(gs);
-        sound.playwiiTheme();
+
 
 
     }
@@ -68,6 +68,7 @@ class GameScreen extends JPanel {
             g.setColor(Color.black);
             g.setFont(font);
             sound.stopwiiTheme();
+
             g.drawString("Game Over", (getWidth() / 2) - (fm.stringWidth("Game Over") / 2),getHeight() / 2 - fm.getAscent() / 2);
             g.drawString("You survived " + ssec + " seconds", (getWidth() / 2) - (fm.stringWidth("You survived " + ssec + " seconds") / 2),getHeight() / 2 + fm.getAscent() / 2);
         }
@@ -91,11 +92,8 @@ class GameScreen extends JPanel {
         public void mouseDragged(MouseEvent e) {
             x = e.getX();
             y = e.getY();
-            for (int i = 0; i < xList.size(); i++) {
-                if (x < xList.get(i) + wList.get(i) && x > xList.get(i) && y < yList.get(i) + hList.get(i) && y  > yList.get(i)) {
-                        end = true;
-                }
-            }
+
+
 
             repaint();
 
@@ -105,16 +103,13 @@ class GameScreen extends JPanel {
         public void mouseMoved(MouseEvent e) {
             x = e.getX();
             y = e.getY();
-            for (int i = 0; i < xList.size(); i++) {
-                if (x < xList.get(i) + wList.get(i) && x > xList.get(i) && y < yList.get(i) + hList.get(i) && y > yList.get(i)) {
-                    end = true;
-                }
-            }
+
             repaint();
         }
         @Override
         public void mouseEntered(MouseEvent e){
             timer.start();
+            sound.playwiiTheme();
             repaint();
         }
         @Override
@@ -162,9 +157,12 @@ class GameScreen extends JPanel {
                 if (msec%20==0){
                     sec +=1;
                 }
-                for (int i = 0; i < xList.size(); i++) {
-                    if (x < xList.get(i) + wList.get(i) && x > xList.get(i) && y < yList.get(i) + hList.get(i) && y > yList.get(i)) {
-                        end = true;
+                if (!end) {
+                    for (int i = 0; i < xList.size(); i++) {
+                        if (x < xList.get(i) + wList.get(i) && x > xList.get(i) && y < yList.get(i) + hList.get(i) && y > yList.get(i)) {
+                            end = true;
+                            sound.playDeath();
+                        }
                     }
                 }
             }
@@ -178,12 +176,12 @@ class GameScreen extends JPanel {
     }
 }
 class Sounds {
-    private String[] files = {"wiiMusic.wav"};
+    private String[] files = {"wiiMusic.wav", "RobloxDeathSoundEffect.wav"};
     private Clip[] clips = new Clip[files.length];
 
     public Sounds() {
         try {
-            for (int i=0; i<files.length; i++) {
+            for (int i = 0; i < files.length; i++) {
                 File file = new File(files[i]);
 
                 AudioInputStream audioStream = AudioSystem.getAudioInputStream(file);
@@ -193,8 +191,7 @@ class Sounds {
                 // deathClip.addLineListener(this);
                 clips[i].open(audioStream);
             }
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             throw new RuntimeException("Unable to initialize sounds.", e);
         }
     }
@@ -204,19 +201,30 @@ class Sounds {
         clips[0].setFramePosition(0);
         clips[0].start();
     }
+
     void stopwiiTheme() {
         clips[0].stop();
     }
-/*
-    void playJumpClip() {
+
+    void playDeath() {
         clips[1].setFramePosition(0);
         clips[1].start();
     }
+}
+class Menues extends JFrame{
+    public Menues(){
+        setTitle("Welcome");
+        add(new Menu);
+    }
+    public static void main(String[] args) {
+        JFrame yes = new Menues();
+        yes.setSize(500,500);
+        yes.setLocationRelativeTo(null);
+        yes.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        yes.setVisible(true);
 
-    void playTheme() {
-        clips[2].loop(20000);
-        clips[2].setFramePosition(0);
-        clips[2].start();
-    }*/
+    }
+}
+class Menu extends JPanel{
 
 }
