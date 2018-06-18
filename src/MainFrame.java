@@ -152,16 +152,23 @@ class GameScreen extends JPanel {
                 int obXa = boi.nextInt(10+speed)-5-speed;
                 int obYa = boi.nextInt(10+speed)-5-speed;
 
-                if (x < obX + obW + 20+2*speed && x > obX-20-2*speed && y < obY + obH + 20+2*speed && y > obY-20-2*speed) {
-                    obX = boi.nextInt(10+speed)-5-speed;
-                    obY = boi.nextInt(10+speed)-5-speed;
+                if(speed<10) {
+                    while (x < obX + obW + 20 + 3 * speed && x > obX - 20 - 3 * speed && y < obY + obH + 20 + 3 * speed && y > obY - 20 - 3 * speed) {
+                        obX = boi.nextInt(10 + speed) - 5 - speed;
+                        obY = boi.nextInt(10 + speed) - 5 - speed;
+                    }
                 }
-
+                else {
+                    while (x < obX + obW + 20 + 50 && x > obX - 50 && y < obY + obH + 50 && y > obY - 50) {
+                        obX = boi.nextInt(10 + speed) - 5 - speed;
+                        obY = boi.nextInt(10 + speed) - 5 - speed;
+                    }
+                }
                 Color colour = new Color(boi.nextInt(255), boi.nextInt(255), boi.nextInt(255));
 
-                while (!(colour.getRed() < getBackground().getRed() - 5 || (colour.getRed() > getBackground().getRed() + 5))
-                        || !(colour.getBlue() < getBackground().getBlue() - 5 || (colour.getBlue() > getBackground().getBlue() + 5))
-                        || !(colour.getGreen() < getBackground().getGreen() - 5 || !(colour.getGreen() > getBackground().getGreen() + 5)))
+                while (!(colour.getRed() < getBackground().getRed() - 50 || (colour.getRed() > getBackground().getRed() + 50))
+                        || !(colour.getBlue() < getBackground().getBlue() - 50 || (colour.getBlue() > getBackground().getBlue() + 50))
+                        || !(colour.getGreen() < getBackground().getGreen() - 50 || !(colour.getGreen() > getBackground().getGreen() + 50)))
 
                     colour = new Color(boi.nextInt(255), boi.nextInt(255), boi.nextInt(255));
 
