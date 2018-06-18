@@ -59,8 +59,10 @@ class GameScreen extends JPanel {
 
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        Font font = new Font("Times New Roman",Font.BOLD,getHeight()/10);
-        FontMetrics fm = g.getFontMetrics(font);
+        Font fontLarge = new Font("Chiller", Font.BOLD, getHeight() / 7);
+        Font fontSmall = new Font("Chiller", Font.BOLD, getHeight() / 10);
+        FontMetrics fl = g.getFontMetrics(fontLarge);
+        FontMetrics fs = g.getFontMetrics(fontSmall);
         ssec = String.valueOf(sec);
 
         if (!end) {
@@ -70,11 +72,12 @@ class GameScreen extends JPanel {
         else {
             g.setColor(Color.WHITE);
             g.fillRect(0,0,getWidth(),getHeight());
-            g.setColor(Color.black);
-            g.setFont(font);
             sound.stopwiiTheme();
-            g.drawString("Game Over", (getWidth() / 2) - (fm.stringWidth("Game Over") / 2),getHeight() / 2 - fm.getAscent() / 2);
-            g.drawString("You survived " + ssec + " seconds", (getWidth() / 2) - (fm.stringWidth("You survived " + ssec + " seconds") / 2),getHeight() / 2 + fm.getAscent() / 2);
+            g.setFont(fontLarge);
+            g.setColor(new Color(205, 45, 100));
+            g.drawString("Game Over", (getWidth() / 2) - (fl.stringWidth("Game Over") / 2),getHeight() / 2 - fl.getAscent() / 2);
+            g.setFont(fontSmall);
+            g.drawString("You survived " + ssec + " seconds", (getWidth() / 2) - (fs.stringWidth("You survived " + ssec + " seconds") / 2),getHeight() / 2 + fs.getAscent() / 2);
         }
     }
 
@@ -182,13 +185,12 @@ class GameScreen extends JPanel {
 
 class MainMenu extends JPanel {
 
-
     public MainMenu() {
 
         setLayout(new BorderLayout());
 
-        Font font = new Font("Times New Roman",Font.BOLD,52);
-        Font font2 = new Font("Jokerman",Font.BOLD,78);
+        Font font = new Font("Chiller",Font.BOLD,74);
+        Font font2 = new Font("Castellar",Font.BOLD,100);
 
         Color colour = new Color(188, 240, 225);
 
@@ -196,12 +198,12 @@ class MainMenu extends JPanel {
         begin.setFont(font2);
         begin.setForeground(Color.BLACK);
         begin.setBackground(colour);
+        begin.setToolTipText("Why haven't you clicked me yet?");
 
 
         JLabel msg = new JLabel("Click Button to Start Game!");
         msg.setFont(font);
-        begin.setForeground(Color.BLACK);
-
+        msg.setForeground(new Color(205, 45, 100));
 
         begin.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
