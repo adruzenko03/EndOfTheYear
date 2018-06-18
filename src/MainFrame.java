@@ -10,7 +10,7 @@ public class MainFrame extends JFrame {
 
     public MainFrame()  {
 
-        setTitle("Let's Play");
+        setTitle("Let's Play!");
         add(new MainMenu());
 
     }
@@ -198,7 +198,7 @@ class MainMenu extends JPanel {
         begin.setFont(font2);
         begin.setForeground(Color.BLACK);
         begin.setBackground(colour);
-        begin.setToolTipText("Why haven't you clicked me yet?");
+        begin.setToolTipText("Keep the mouse from touching any of the obstacles for as long as possible! Why haven't you clicked me yet?");
 
 
         JLabel msg = new JLabel("Click Button to Start Game!");
@@ -209,7 +209,7 @@ class MainMenu extends JPanel {
             public void actionPerformed(ActionEvent e) {
 
                 JFrame yess = new MainFrame(1);
-                yess.setTitle("Let's Play!");
+                yess.setTitle("Blockdidge™");
                 yess.setSize(750,750);
                 yess.setLocationRelativeTo(null);
                 yess.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -239,7 +239,6 @@ class Sounds {
                 AudioFormat format = audioStream.getFormat();
                 DataLine.Info info = new DataLine.Info(Clip.class, format, (int) (audioStream.getFrameLength() * format.getFrameSize()));
                 clips[i] = (Clip) AudioSystem.getLine(info);
-                // deathClip.addLineListener(this);
                 clips[i].open(audioStream);
             }
         }
@@ -256,16 +255,5 @@ class Sounds {
     void stopwiiTheme() {
         clips[0].stop();
     }
-/*
-    void playJumpClip() {
-        clips[1].setFramePosition(0);
-        clips[1].start();
-    }
-
-    void playTheme() {
-        clips[2].loop(20000);
-        clips[2].setFramePosition(0);
-        clips[2].start();
-    }*/
 
 }
