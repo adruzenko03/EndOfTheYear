@@ -32,9 +32,9 @@ public class MainFrame extends JFrame {
 }
 
 class GameScreen extends JPanel {
-    int sec;
-    int msec;
-    int x, y;
+
+    int x, y, msec, sec;
+    int speed = 1;
     String ssec;
     boolean end = false;
     Sounds sound = new Sounds();
@@ -53,7 +53,7 @@ class GameScreen extends JPanel {
         mouse gs = new mouse();
         this.addMouseListener(gs);
         this.addMouseMotionListener(gs);
-        sound.playwiiTheme();
+
 
     }
 
@@ -99,6 +99,8 @@ class GameScreen extends JPanel {
             y = e.getY();
             for (int i = 0; i < xList.size(); i++) {
                 if (x < xList.get(i) + wList.get(i) && x > xList.get(i) && y < yList.get(i) + hList.get(i) && y  > yList.get(i)) {
+                    if (!end)
+                        sound.deathSound();
                     end = true;
                 }
             }
@@ -113,6 +115,8 @@ class GameScreen extends JPanel {
             y = e.getY();
             for (int i = 0; i < xList.size(); i++) {
                 if (x < xList.get(i) + wList.get(i) && x > xList.get(i) && y < yList.get(i) + hList.get(i) && y > yList.get(i)) {
+                    if (!end)
+                    sound.deathSound();
                     end = true;
                 }
             }
@@ -121,10 +125,13 @@ class GameScreen extends JPanel {
         @Override
         public void mouseEntered(MouseEvent e){
             timer.start();
+            sound.playwiiTheme();
             repaint();
         }
         @Override
         public void mouseExited(MouseEvent e){
+            if (!end)
+                sound.deathSound();
             end = true;
             repaint();
         }
@@ -142,12 +149,12 @@ class GameScreen extends JPanel {
                 int obY = boi.nextInt(750);
                 int obH = boi.nextInt(30) + 20;
                 int obW = boi.nextInt(30) + 20;
-                int obXa = boi.nextInt(10)-5;
-                int obYa = boi.nextInt(10)-5;
+                int obXa = boi.nextInt(10+speed)-5-speed;
+                int obYa = boi.nextInt(10+speed)-5-speed;
 
-                if (x < obX + obW + 20 && x > obX-20 && y < obY + obH + 20 && y > obY-20) {
-                    obX = boi.nextInt(750);
-                    obY = boi.nextInt(750);
+                if (x < obX + obW + 20+2*speed && x > obX-20-2*speed && y < obY + obH + 20+2*speed && y > obY-20-2*speed) {
+                    obX = boi.nextInt(10+speed)-5-speed;
+                    obY = boi.nextInt(10+speed)-5-speed;
                 }
 
                 Color colour = new Color(boi.nextInt(255), boi.nextInt(255), boi.nextInt(255));
@@ -166,12 +173,17 @@ class GameScreen extends JPanel {
 
                 }
                 msec+=1;
+
                 if (msec%20==0){
                     sec +=1;
+                    speed+=1;
                 }
                 for (int i = 0; i < xList.size(); i++) {
                     if (x < xList.get(i) + wList.get(i) && x > xList.get(i) && y < yList.get(i) + hList.get(i) && y > yList.get(i)) {
+                        if (!end)
+                            sound.deathSound();
                         end = true;
+
                     }
                 }
 
@@ -201,7 +213,7 @@ class MainMenu extends JPanel {
         begin.setToolTipText("Keep the mouse from touching any of the obstacles for as long as possible! Why haven't you clicked me yet?");
 
 
-        JLabel msg = new JLabel("Click Button to Start Game!");
+        JLabel msg = new JLabel("DodgeBlock", SwingConstants.CENTER);
         msg.setFont(font);
         msg.setForeground(new Color(205, 45, 100));
 
@@ -227,7 +239,7 @@ class MainMenu extends JPanel {
 
 
 class Sounds {
-    private String[] files = {"wiiMusic.wav"};
+    private String[] files = {"wiiMusic.wav", "RobloxDeathSoundEffect.wav"};
     private Clip[] clips = new Clip[files.length];
 
     public Sounds() {
@@ -254,6 +266,10 @@ class Sounds {
     }
     void stopwiiTheme() {
         clips[0].stop();
+    }
+    void deathSound() {
+        clips[1].setFramePosition(0);
+        clips[1].start();
     }
 
 }
