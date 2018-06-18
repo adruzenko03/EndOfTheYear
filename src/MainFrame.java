@@ -159,6 +159,14 @@ class GameScreen extends JPanel {
 
                 Color colour = new Color(boi.nextInt(255), boi.nextInt(255), boi.nextInt(255));
 
+                while (!(colour.getRed() < getBackground().getRed() - 5 || (colour.getRed() > getBackground().getRed() + 5))
+                        || !(colour.getBlue() < getBackground().getBlue() - 5 || (colour.getBlue() > getBackground().getBlue() + 5))
+                        || !(colour.getGreen() < getBackground().getGreen() - 5 || !(colour.getGreen() > getBackground().getGreen() + 5)))
+
+                    colour = new Color(boi.nextInt(255), boi.nextInt(255), boi.nextInt(255));
+
+
+
                 xList.add(obX);
                 yList.add(obY);
                 hList.add(obH);
