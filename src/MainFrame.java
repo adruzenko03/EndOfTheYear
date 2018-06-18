@@ -221,7 +221,7 @@ class MainMenu extends JPanel {
             public void actionPerformed(ActionEvent e) {
 
                 JFrame yess = new MainFrame(1);
-                yess.setTitle("Blockdidge™");
+                yess.setTitle("Blockdodge™");
                 yess.setSize(750,750);
                 yess.setLocationRelativeTo(null);
                 yess.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
