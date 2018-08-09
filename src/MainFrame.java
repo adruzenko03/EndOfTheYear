@@ -46,9 +46,9 @@ public class MainFrame extends JFrame {
 
 class GameScreen extends JPanel {
 
-    int x, y, msec, sec;
+    int x, y, msec;
+    static int sec;
     int speed = 1;
-    static String ssec;
     boolean end = false;
     static Sounds sound = new Sounds();
     ArrayList<Integer> xList = new ArrayList<>();
@@ -81,7 +81,6 @@ class GameScreen extends JPanel {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
 
-        ssec = String.valueOf(sec);
         if (sec > MainFrame.secSurvived)
             MainFrame.secSurvived = sec;
 
@@ -277,6 +276,7 @@ class MainMenu extends JPanel {
 class GameOver extends JPanel {
 
     JButton tryAgain;
+    static String ssec = String.valueOf(GameScreen.sec);
 
     public GameOver() {
 
@@ -310,7 +310,7 @@ class GameOver extends JPanel {
         g.setColor(new Color(205, 45, 100));
         g.drawString("Game Over", (getWidth() / 2) - (fl.stringWidth("Game Over") / 2),getHeight() / 2 - fl.getAscent() / 2);
         g.setFont(fontSmall);
-        g.drawString("You survived " + GameScreen.ssec + " seconds", (getWidth() / 2) - (fs.stringWidth("You survived " + GameScreen.ssec + " seconds") / 2),getHeight() / 2 + fs.getAscent() / 2);
+        g.drawString("You survived " + ssec + " seconds", (getWidth() / 2) - (fs.stringWidth("You survived " + ssec + " seconds") / 2),getHeight() / 2 + fs.getAscent() / 2);
 
         String best = String.valueOf(MainFrame.secSurvived);
         g.setFont(new Font("Chiller", Font.PLAIN, getHeight() / 24));
