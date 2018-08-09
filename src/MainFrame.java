@@ -8,6 +8,9 @@ import java.util.Random;
 
 public class MainFrame extends JFrame {
 
+    static JFrame main;
+    static int secSurvived;
+
     public MainFrame()  {
 
         setTitle("Let's Play!");
@@ -17,7 +20,17 @@ public class MainFrame extends JFrame {
 
     public MainFrame(int i) {
 
-        add (new GameScreen());
+        if (i == 1) {
+            setTitle("Blockdodge™");
+            add (new GameScreen());
+        }
+
+
+        if (i == 2) {
+            setTitle("Let's Play!");
+            add(new GameOver());
+        }
+
 
     }
 
@@ -35,9 +48,9 @@ class GameScreen extends JPanel {
 
     int x, y, msec, sec;
     int speed = 1;
-    String ssec;
+    static String ssec;
     boolean end = false;
-    Sounds sound = new Sounds();
+    static Sounds sound = new Sounds();
     ArrayList<Integer> xList = new ArrayList<>();
     ArrayList<Integer> yList = new ArrayList<>();
     ArrayList<Integer> hList = new ArrayList<>();
@@ -46,39 +59,49 @@ class GameScreen extends JPanel {
     ArrayList<Integer> yaList = new ArrayList<>();
     ArrayList<Color> cList = new ArrayList<>();
 
+    JFrame ihopethisworks;
+
+    boolean isOne;
+
 
     Timer timer = new Timer(50, new TimerListener());
 
     public GameScreen(){
+
+
         mouse gs = new mouse();
         this.addMouseListener(gs);
         this.addMouseMotionListener(gs);
+
+        setLayout(null);
 
 
     }
 
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        Font fontLarge = new Font("Chiller", Font.BOLD, getHeight() / 7);
-        Font fontSmall = new Font("Chiller", Font.BOLD, getHeight() / 10);
-        FontMetrics fl = g.getFontMetrics(fontLarge);
-        FontMetrics fs = g.getFontMetrics(fontSmall);
+
         ssec = String.valueOf(sec);
+        if (sec > MainFrame.secSurvived)
+            MainFrame.secSurvived = sec;
 
         if (!end) {
             drawObstacles(g);
         }
 
-        else {
-            g.setColor(Color.WHITE);
-            g.fillRect(0,0,getWidth(),getHeight());
+
+
+        if (end && !isOne) {
             sound.stopwiiTheme();
-            g.setFont(fontLarge);
-            g.setColor(new Color(205, 45, 100));
-            g.drawString("Game Over", (getWidth() / 2) - (fl.stringWidth("Game Over") / 2),getHeight() / 2 - fl.getAscent() / 2);
-            g.setFont(fontSmall);
-            g.drawString("You survived " + ssec + " seconds", (getWidth() / 2) - (fs.stringWidth("You survived " + ssec + " seconds") / 2),getHeight() / 2 + fs.getAscent() / 2);
+            ihopethisworks = new MainFrame(2);
+            ihopethisworks.setSize(750, 750);
+            ihopethisworks.setLocationRelativeTo(null);
+            ihopethisworks.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            ihopethisworks.setVisible(true);
+
+            isOne = !isOne;
         }
+
     }
 
 
@@ -227,7 +250,7 @@ class MainMenu extends JPanel {
         begin.setToolTipText("Keep the mouse from touching any of the obstacles for as long as possible! Why haven't you clicked me yet?");
 
 
-        JLabel msg = new JLabel("DodgeBlock", SwingConstants.CENTER);
+        JLabel msg = new JLabel("Blockdodge™", SwingConstants.CENTER);
         msg.setFont(font);
         msg.setForeground(new Color(205, 45, 100));
 
@@ -249,6 +272,55 @@ class MainMenu extends JPanel {
 
     }
 
+}
+
+class GameOver extends JPanel {
+
+    JButton tryAgain;
+
+    public GameOver() {
+
+        setLayout(null);
+
+        tryAgain = new JButton("Try Again");
+        tryAgain.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                MainFrame.main = new MainFrame(1);
+                MainFrame.main.setSize(750, 750);
+                MainFrame.main.setLocationRelativeTo(null);
+                MainFrame.main.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                MainFrame.main.setVisible(true);
+            }
+        });
+
+    }
+
+    protected void paintComponent(Graphics g) {
+
+        Font fontLarge = new Font("Chiller", Font.BOLD, getHeight() / 7);
+        Font fontSmall = new Font("Chiller", Font.BOLD, getHeight() / 10);
+        FontMetrics fl = g.getFontMetrics(fontLarge);
+        FontMetrics fs = g.getFontMetrics(fontSmall);
+
+        g.setColor(Color.WHITE);
+        g.fillRect(0,0,getWidth(),getHeight());
+        g.setFont(fontLarge);
+        g.setColor(new Color(205, 45, 100));
+        g.drawString("Game Over", (getWidth() / 2) - (fl.stringWidth("Game Over") / 2),getHeight() / 2 - fl.getAscent() / 2);
+        g.setFont(fontSmall);
+        g.drawString("You survived " + GameScreen.ssec + " seconds", (getWidth() / 2) - (fs.stringWidth("You survived " + GameScreen.ssec + " seconds") / 2),getHeight() / 2 + fs.getAscent() / 2);
+
+        String best = String.valueOf(MainFrame.secSurvived);
+        g.setFont(new Font("Chiller", Font.PLAIN, getHeight() / 24));
+        FontMetrics yis = g.getFontMetrics(g.getFont());
+        g.drawString("Personal Best: " + best, 22 * getWidth() / 25 - yis.stringWidth("Personal Best: " + best) / 2, getHeight() / 20 - yis.getAscent() / 2);
+
+        tryAgain.setBounds(getWidth() / 2 - 80, 2 * getHeight() / 3, 160, 40);
+        add(tryAgain);
+
+    }
 }
 
 
