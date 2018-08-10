@@ -298,6 +298,20 @@ class GameOver extends JPanel {
     }
 
     protected void paintComponent(Graphics g) {
+        //create the font
+
+        try {
+            //create the font to use. Specify the size!
+            Font customFont = Font.createFont(Font.TRUETYPE_FONT, new File("Chiller.ttf")).deriveFont(12f);
+            GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+            //register the font
+            ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File("Chiller.ttf")));
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch(FontFormatException e) {
+            e.printStackTrace();
+        }
+
 
         Font fontLarge = new Font("Chiller", Font.BOLD, getHeight() / 7);
         Font fontSmall = new Font("Chiller", Font.BOLD, getHeight() / 10);
