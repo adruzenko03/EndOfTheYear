@@ -234,11 +234,37 @@ class GameScreen extends JPanel {
 class MainMenu extends JPanel {
 
     public MainMenu() {
+        //create the font
+
+        try {
+            //create the font to use. Specify the size!
+            Font customFont = Font.createFont(Font.TRUETYPE_FONT, new File("Chiller.ttf")).deriveFont(12f);
+            GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+            //register the font
+            ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File("Chiller.ttf")));
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch(FontFormatException e) {
+            e.printStackTrace();
+        }
+        //create the font
+
+        try {
+            //create the font to use. Specify the size!
+            Font customFont = Font.createFont(Font.TRUETYPE_FONT, new File("Castelar.ttf")).deriveFont(12f);
+            GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+            //register the font
+            ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File("Castelar.ttf")));
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch(FontFormatException e) {
+            e.printStackTrace();
+        }
 
         setLayout(new BorderLayout());
 
         Font font = new Font("Chiller",Font.BOLD,74);
-        Font font2 = new Font("Castellar",Font.BOLD,100);
+        Font font2 = new Font("Castelar",Font.BOLD,100);
 
         Color colour = new Color(188, 240, 225);
 
