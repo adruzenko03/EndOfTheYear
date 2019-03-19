@@ -358,6 +358,7 @@ class GameOver extends JPanel {
         g.drawString("Personal Best: " + best, 22 * getWidth() / 25 - yis.stringWidth("Personal Best: " + best) / 2, getHeight() / 20 - yis.getAscent() / 2);
 
         tryAgain.setBounds(getWidth() / 2 - 80, 2 * getHeight() / 3, 160, 40);
+        tryAgain.setBackground(new Color(0, 170, 170, 50));
         add(tryAgain);
 
     }
