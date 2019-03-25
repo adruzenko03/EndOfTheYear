@@ -6,10 +6,9 @@ public interface Gambler {
 
     Team pickTeam(Team[] teams);
 
-    void addwin(int money);
+    void addwin(double money);
 
-    void addloss(int money);
+    void addloss(double money);
 
-    int getBalance();
 
 }
