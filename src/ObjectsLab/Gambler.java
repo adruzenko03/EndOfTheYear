@@ -1,7 +1,7 @@
 package ObjectsLab;
 
 public interface Gambler {
-//Hello vignesh
+//Hello vignes
     double getBalance();
 
     //Team pickTeam(Team[] teams);
