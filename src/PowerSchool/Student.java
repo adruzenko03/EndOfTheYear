@@ -103,9 +103,13 @@ public class Student implements Comparable<Student>{
      * Returns false if: course was not on student’s schedule.
      */
     public boolean dropCourse(Course someCourse) {
-        ArrayList<>
+        ArrayList<Course> templist =schedule;
         for(int loopvar=0;loopvar<schedule.length;loopvar++){
-            if(someCourse.courseTitle().equals(schedule[loopvar].courseTitle()))
+            if(someCourse.courseTitle().equals(schedule[loopvar].courseTitle())){
+                templist.remove(loopvar);
+                schedule=(Course[])templist.toArray();
+                return true;
+            }
 
         }
         return false;
