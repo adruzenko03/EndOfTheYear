@@ -12,9 +12,8 @@ public class Student implements Comparable<Student>{
     private String Name;
     private int gradYear;
     private School Academy;
-
-
     Course[] schedule; // Contains no more than ten courses.
+
     public Student (String name, int gradYear, School Academy){
         Name=name;
         this.gradYear=gradYear;

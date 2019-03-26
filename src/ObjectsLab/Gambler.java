@@ -2,13 +2,12 @@ package ObjectsLab;
 
 public interface Gambler {
 
-    double getMoney();
+    double getBalance();
 
     boolean[] getWins_Losses();
 
     Team pickTeam(Team[] teams);
 
-    void bet(int money, Team team);
-
+    void bet(int money, Team[] team);
 
 }

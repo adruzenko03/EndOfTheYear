@@ -10,4 +10,6 @@ public class AddictedGambler implements Gambler {
     public double getBalance() {
         return 0.0;
     }
+
+    //public boolean stealMoney()
 }
