@@ -32,33 +32,40 @@ public class Student implements Comparable<Student>{
     // Calculates GPA as average of classes
     public double getGPA(){
         double GpaTotal=0;
+        int amountofGPAclasses=schedule.length;
         int Coursegrade;
 
-        for(int i=0;i<schedule.length;i++){
-            Coursegrade=schedule[i].gradeOf(this);
-            if(Coursegrade>=93)
-                GpaTotal+=4.0;
-            else if(Coursegrade>=90)
-                GpaTotal+=3.7;
-            else if(Coursegrade>=87)
-                GpaTotal+=3.3;
-            else if(Coursegrade>=83)
-                GpaTotal+=3.0;
-            else if(Coursegrade>=80)
-                GpaTotal+=2.7;
-            else if(Coursegrade>=77)
-                GpaTotal+=2.3;
-            else if(Coursegrade>=73)
-                GpaTotal+=2.0;
-            else if(Coursegrade>=70)
-                GpaTotal+=1.7;
-            else if(Coursegrade>=67)
-                GpaTotal+=1.3;
-            else if(Coursegrade>=65)
-                GpaTotal+=1.0;
 
+        for(int i=0;i<schedule.length;i++){
+            if(schedule[i].gradeOf(this).audited()){
+                amountofGPAclasses--;
             }
-            return GpaTotal/schedule.length;
+            else{
+                Coursegrade=schedule[i].gradeOf(this).gradeValue();
+                if(Coursegrade>=93)
+                    GpaTotal+=4.0;
+                else if(Coursegrade>=90)
+                    GpaTotal+=3.7;
+                else if(Coursegrade>=87)
+                    GpaTotal+=3.3;
+                else if(Coursegrade>=83)
+                    GpaTotal+=3.0;
+                else if(Coursegrade>=80)
+                    GpaTotal+=2.7;
+                else if(Coursegrade>=77)
+                    GpaTotal+=2.3;
+                else if(Coursegrade>=73)
+                    GpaTotal+=2.0;
+                else if(Coursegrade>=70)
+                    GpaTotal+=1.7;
+                else if(Coursegrade>=67)
+                    GpaTotal+=1.3;
+                else if(Coursegrade>=65)
+                    GpaTotal+=1.0;
+
+                }
+        }
+            return GpaTotal/amountofGPAclasses;
         }
 
     }
