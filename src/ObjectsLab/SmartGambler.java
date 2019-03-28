@@ -2,7 +2,7 @@ package ObjectsLab;
 
 public class SmartGambler implements Gambler {
     private double balance;
-    Bet[] wins_losses;
+    Bet[] betHistory;
     Bet currentBet;
 
     public SmartGambler(double balance) {
@@ -18,15 +18,15 @@ public class SmartGambler implements Gambler {
     }
 
     public Bet getCurrentBet() {
-
+        return currentBet;
     }
 
     public Bet[] getBetHistory() {
-
+        return betHistory;
     }
 
     public double getBalance() {
-        return 0.0;
+        return balance;
     }
 
 }

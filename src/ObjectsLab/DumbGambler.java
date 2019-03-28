@@ -2,8 +2,8 @@ package ObjectsLab;
 
 public class DumbGambler implements Gambler {
     private double balance;
-    Bet[] wins_losses;
-    Bet currentBet;
+    private Bet[] betHistory;
+    private Bet currentBet;
 
 
     public DumbGambler(double balance) {
@@ -19,15 +19,15 @@ public class DumbGambler implements Gambler {
     }
 
     public Bet getCurrentBet() {
-
+        return currentBet;
     }
 
     public Bet[] getBetHistory() {
-
+        return betHistory;
     }
 
     public double getBalance() {
-        return 0.0;
+        return balance;
     }
 
 
