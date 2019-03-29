@@ -10,6 +10,15 @@ public class SmartGambler implements Gambler {
     }
 
     public void bet(Team[] team) {
+        int bestTeamIndex = 0, highestScore = 0;
+        for (int t = 0; t < team.length; t++) {
+            if (team[t].score > highestScore) {
+                highestScore = team[t].score;
+                bestTeamIndex = t;
+            }
+        }
+
+        //currentBet = new Bet(10, bestTeamIndex)
 
     }
 
