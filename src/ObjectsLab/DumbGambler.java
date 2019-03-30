@@ -5,6 +5,7 @@ import java.util.Random;
 
 public class DumbGambler implements Gambler {
     private double balance;
+    private final double[] betvals={.5,.25,.1,.01,.30,.40};
     private ArrayList<Bet> betHistory;
     private Bet currentBet;
 
@@ -22,8 +23,9 @@ public class DumbGambler implements Gambler {
             otherTeam = r.nextInt(team.length);
         }
 
-        currentBet = new Bet(10, team[teamSelect], team[otherTeam]);
+        currentBet = new Bet(balance*betvals[r.nextInt(betvals.length)], team[teamSelect], team[otherTeam]);
         //how do we determine how much money they bet
+        //betval is percentage of balance betted
     }
 
     public void winBet (Team winningTeam) {
@@ -46,7 +48,7 @@ public class DumbGambler implements Gambler {
         return currentBet;
     }
 
-    public Bet[] getBetHistory() {
+    public ArrayList<Bet> getBetHistory() {
         return betHistory;
     }
 

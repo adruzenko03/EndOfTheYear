@@ -1,6 +1,5 @@
 package ObjectsLab;
 
-import java.util.Random;
 
 public class Bet {
     private double money;

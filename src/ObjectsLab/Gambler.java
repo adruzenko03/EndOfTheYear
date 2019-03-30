@@ -1,5 +1,7 @@
 package ObjectsLab;
 
+import java.util.ArrayList;
+
 public interface Gambler {
 
     void bet(Team[] team);
@@ -10,6 +12,6 @@ public interface Gambler {
 
     Bet getCurrentBet();
 
-    Bet[] getBetHistory();
+    ArrayList<Bet> getBetHistory();
 
 }
