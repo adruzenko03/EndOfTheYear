@@ -1,15 +1,17 @@
 package ObjectsLab;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 public class DumbGambler implements Gambler {
     private double balance;
-    private Bet[] betHistory;
+    private ArrayList<Bet> betHistory;
     private Bet currentBet;
 
 
     public DumbGambler(double balance) {
         this.balance = balance;
+        betHistory=new ArrayList<Bet>();
     }
 
     public void bet(Team[] team) {
@@ -25,7 +27,19 @@ public class DumbGambler implements Gambler {
     }
 
     public void winBet (Team winningTeam) {
-
+        if(currentBet==null)
+            throw new NullPointerException();
+        currentBet.winBet(winningTeam);
+        if(currentBet.getBetStatus()){
+            balance+=currentBet.getMoney();
+        }
+        else{
+            balance-=currentBet.getMoney();
+        }
+        if(balance<0)
+            balance=0;
+        betHistory.add(currentBet);
+        currentBet=null;
     }
 
     public Bet getCurrentBet() {
