@@ -13,7 +13,7 @@ public class Student implements Comparable<Student>{
     private String name;
     private int gradYear;
     private School Academy;
-    Course[] schedule; // Contains no more than ten courses.
+    private Course[] schedule; // Contains no more than ten courses.
 
     public Student (String name, int gradYear, School Academy){
         this.name=name;
@@ -21,7 +21,7 @@ public class Student implements Comparable<Student>{
         this.Academy=Academy;
     }
     public String getName(){
-        return Name;
+        return name;
     }
     public int getGradYear(){
         return gradYear;
