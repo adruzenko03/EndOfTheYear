@@ -16,16 +16,21 @@ public class DumbGambler implements Gambler {
     }
 
     public void bet(Team[] team) {
-        Random r = new Random();
-        int teamSelect = r.nextInt(team.length), otherTeam = r.nextInt(team.length);
+        if(currentBet==null) {
+            Random r = new Random();
+            int teamSelect = r.nextInt(team.length), otherTeam = r.nextInt(team.length);
 
-        while (otherTeam == teamSelect) {
-            otherTeam = r.nextInt(team.length);
+            while (otherTeam == teamSelect) {
+                otherTeam = r.nextInt(team.length);
+            }
+
+            currentBet = new Bet(balance * betvals[r.nextInt(betvals.length)], team[teamSelect], team[otherTeam]);
+            //how do we determine how much money they bet
+            //betval is percentage of balance betted
         }
-
-        currentBet = new Bet(balance*betvals[r.nextInt(betvals.length)], team[teamSelect], team[otherTeam]);
-        //how do we determine how much money they bet
-        //betval is percentage of balance betted
+        else{
+            System.out.println("Bet in play, only make one bet at a time");
+        }
     }
 
     public void winBet (Team winningTeam) {
