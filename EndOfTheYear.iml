@@ -17,5 +17,6 @@
       </library>
     </orderEntry>
     <orderEntry type="library" name="Course1" level="project" />
+    <orderEntry type="library" exported="" name="ObjectsLab" level="project" />
   </component>
 </module>
