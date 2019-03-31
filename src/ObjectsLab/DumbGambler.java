@@ -5,7 +5,7 @@ import java.util.Random;
 
 public class DumbGambler implements Gambler {
     private double balance;
-    private final double[] betvals={.5,.25,.1,.01,.30,.40};
+    private final double[] BETVALS={.5,.25,.1,.01,.30,.40};
     private ArrayList<Bet> betHistory;
     private Bet currentBet;
 
@@ -16,7 +16,7 @@ public class DumbGambler implements Gambler {
     }
 
     public void bet(Team[] team) {
-        if(currentBet==null) {
+        if(currentBet==null&&balance!=0) {
             Random r = new Random();
             int teamSelect = r.nextInt(team.length), otherTeam = r.nextInt(team.length);
 
@@ -24,12 +24,12 @@ public class DumbGambler implements Gambler {
                 otherTeam = r.nextInt(team.length);
             }
 
-            currentBet = new Bet(balance * betvals[r.nextInt(betvals.length)], team[teamSelect], team[otherTeam]);
+            currentBet = new Bet(balance * BETVALS[r.nextInt(BETVALS.length)], team[teamSelect], team[otherTeam]);
             //how do we determine how much money they bet
             //betval is percentage of balance betted
         }
         else{
-            System.out.println("Bet in play, only make one bet at a time");
+            System.out.println("Bet already in play or you went broke");
         }
     }
 

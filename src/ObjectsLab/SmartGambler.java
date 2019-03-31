@@ -29,7 +29,7 @@ public class SmartGambler implements Gambler {
 
         //currentBet = new Bet(10, bestTeamIndex)
         else{
-            System.out.println("Bet in play, only make one bet at a time");
+            System.out.println("Bet already in play or you went broke");
         }
     }
 
