@@ -7,7 +7,7 @@ public class AddictedGambler implements Gambler {
     private double balance;
     private ArrayList<Bet> betHistory;
     private Bet currentBet;
-    private ArrayList<Gambler> stealoptions=null;
+    private ArrayList<Gambler> stealoptions;
 
     public AddictedGambler(double balance) {
         this.balance = balance;
@@ -28,7 +28,7 @@ public class AddictedGambler implements Gambler {
 \
         }
         else{
-            System.out.println("Bet in play, only make one bet at a time");
+            System.out.println("Bet already in play or you went broke");
         }
 
     }

@@ -1,19 +1,22 @@
 package PowerSchool;
 
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 public class Student implements Comparable<Student>{
 
     /* When you declare the Student class, declare it as:
      * public class Student implements Comparable<Student>{
      * This is your promise to include the compareTo() method.
      */
-    private String Name;
+    private String name;
     private int gradYear;
     private School Academy;
     Course[] schedule; // Contains no more than ten courses.
 
     public Student (String name, int gradYear, School Academy){
-        Name=name;
+        this.name=name;
         this.gradYear=gradYear;
         this.Academy=Academy;
     }
@@ -60,20 +63,20 @@ public class Student implements Comparable<Student>{
                 else if(Coursegrade>=65)
                     GpaTotal+=1.0;
 
-                }
+            }
         }
-            return GpaTotal/amountofGPAclasses;
-        }
-
+        return GpaTotal/amountofGPAclasses;
     }
+
+
     // Returns compareTo value for the GPAs of the two students
     public int compareTo(Student someOtherKid){
         /*
-        * Dumb Option 1
-        * if(getGPA()-someOtherKid.getGPA())==0)
-        * return 0;
-        * return (int) ((getGPA() - someOtherKid.getGPA()) * (1 / Math.abs(getGPA() - someOtherKid.getGPA())));
-        */
+         * Dumb Option 1
+         * if(getGPA()-someOtherKid.getGPA())==0)
+         * return 0;
+         * return (int) ((getGPA() - someOtherKid.getGPA()) * (1 / Math.abs(getGPA() - someOtherKid.getGPA())));
+         */
 
         /*
          * Dumb Option 2
@@ -95,7 +98,7 @@ public class Student implements Comparable<Student>{
         if(schedule.length==10)
             return false;
         for(int loopvar=0;loopvar<schedule.length;loopvar++){
-            if(someCourse.courseTitle().equals(schedule[loopvar].courseTitle()))
+            if(someCourse.equals(schedule[loopvar]))
                 return false;
             numCourses++;
         }
@@ -107,9 +110,9 @@ public class Student implements Comparable<Student>{
      * Returns false if: course was not on student’s schedule.
      */
     public boolean dropCourse(Course someCourse) {
-        ArrayList<Course> templist =schedule;
+        ArrayList<Course> templist = new ArrayList<Course>(Arrays.asList(schedule));
         for(int loopvar=0;loopvar<schedule.length;loopvar++){
-            if(someCourse.courseTitle().equals(schedule[loopvar].courseTitle())){
+            if(someCourse.equals(schedule[loopvar])){
                 templist.remove(loopvar);
                 schedule=(Course[])templist.toArray();
                 return true;
@@ -119,5 +122,5 @@ public class Student implements Comparable<Student>{
         return false;
 
     }
-
 }
+
