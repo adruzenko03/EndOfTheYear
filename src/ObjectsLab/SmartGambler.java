@@ -1,6 +1,7 @@
 package ObjectsLab;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class SmartGambler implements Gambler {
     private double balance;
@@ -12,6 +13,13 @@ public class SmartGambler implements Gambler {
     }
 
     public void bet(Team[] team) {
+        int[] teamdeathaverage=new int[team.length];
+        int  currentcalculation=0;
+        int teamSelect=0;
+        int leastdeathChance=Integer.MAX_VALUE;
+        Random r = new Random();
+        int otherTeam = r.nextInt(team.length);
+
         if(currentBet==null) {
             /*HUGE PROBLEM wont work, score is entered after game played, should be done based on deathchance of player.
             int bestTeamIndex = 0, highestScore = 0;
@@ -21,10 +29,25 @@ public class SmartGambler implements Gambler {
                     bestTeamIndex = t;
                 }
             }*/
-            int bestTeamIndex=0;
-            for (int t = 0; t < team.length; t++) {
 
+            for (int teamloop = 0; teamloop < team.length; teamloop++) {
+                for(int player =0;player<team[teamloop].amountOfPlayer();player++){
+                    currentcalculation+=team[teamloop].getPlayer(player).getDeathChance;
+                }
+                currentcalculation/=team[teamloop].amountOfPlayer();
+                teamdeathaverage[teamloop]=currentcalculation;
             }
+            for(int teamloop2=0;teamloop2<teamdeathaverage.length;teamloop2++){
+                if(teamdeathaverage[teamloop2]<leastdeathChance){
+                    teamSelect=teamloop2;
+                    leastdeathChance=teamdeathaverage[teamloop2];
+                }
+            }
+
+            while (otherTeam == teamSelect) {
+                otherTeam = r.nextInt(team.length);
+            }
+            currentBet = new Bet(10/*balance * BETVALS[r.nextInt(BETVALS.length)]*/, team[teamSelect], team[otherTeam]);
         }
 
         //currentBet = new Bet(10, bestTeamIndex)
