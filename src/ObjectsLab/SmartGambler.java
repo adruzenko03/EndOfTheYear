@@ -31,10 +31,10 @@ public class SmartGambler implements Gambler {
             }*/
 
             for (int teamloop = 0; teamloop < team.length; teamloop++) {
-                for(int player =0;player<team[teamloop].amountOfPlayer();player++){
-                    currentcalculation+=team[teamloop].getPlayer(player).getDeathChance;
+                for(int player =0;player<team[teamloop].amountOfPlayers();player++){
+                    currentcalculation+=team[teamloop].getPlayer(player).getDeathChance();
                 }
-                currentcalculation/=team[teamloop].amountOfPlayer();
+                currentcalculation/=team[teamloop].amountOfPlayers();
                 teamdeathaverage[teamloop]=currentcalculation;
             }
             for(int teamloop2=0;teamloop2<teamdeathaverage.length;teamloop2++){
