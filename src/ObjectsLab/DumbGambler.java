@@ -48,7 +48,7 @@ public class DumbGambler implements Gambler {
         betHistory.add(currentBet);
         currentBet=null;
     }
-    public double stealFrom(){
+    public double beStolenFrom(){
 
         double moneystolen=balance*.25;
         balance-=moneystolen;

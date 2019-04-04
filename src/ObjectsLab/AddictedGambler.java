@@ -53,13 +53,13 @@ public class AddictedGambler implements Gambler {
     }
     private void steal(){
         Gambler unlucky=stealoptions.get(new Random().nextInt(stealoptions.size()));
-        balance+=unlucky.stealFrom();
+        balance+=unlucky.beStolenFrom();
         //we need to add a thing in each gambler to steal from them.
     }
     public void addStealOptions(Gambler g){
         stealoptions.add(g);
     }
-    public double stealFrom(){
+    public double beStolenFrom(){
 
         double moneystolen=balance*.25;
         balance-=moneystolen;

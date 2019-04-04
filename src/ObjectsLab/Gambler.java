@@ -3,7 +3,7 @@ package ObjectsLab;
 import java.util.ArrayList;
 
 public interface Gambler {
-    double stealFrom();
+    double beStolenFrom();
 
     void bet(Team[] team);
 
