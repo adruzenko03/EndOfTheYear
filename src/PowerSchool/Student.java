@@ -10,15 +10,16 @@ public class Student implements Comparable<Student>{
      * public class Student implements Comparable<Student>{
      * This is your promise to include the compareTo() method.
      */
-    private String name;
-    private int gradYear;
-    private School Academy;
-    private Course[] schedule; // Contains no more than ten courses.
+    String name;
+    int gradYear;
+    School Academy;
+    Course[] schedule; // Contains no more than ten courses.
 
     public Student (String name, int gradYear, School Academy){
         this.name=name;
         this.gradYear=gradYear;
         this.Academy=Academy;
+        schedule = new Course[10];
     }
     public String getName(){
         return name;
@@ -66,6 +67,7 @@ public class Student implements Comparable<Student>{
             }
         }
         return GpaTotal/amountofGPAclasses;
+
     }
 
 
@@ -94,17 +96,25 @@ public class Student implements Comparable<Student>{
      * Returns false if: course would brings classes to more than
      * 10, or student is already enrolled. */
     public boolean addCourse(Course someCourse) {
-        int numCourses = 0;
-        if(schedule.length==10)
-            return false;
-        for(int loopvar=0;loopvar<schedule.length;loopvar++){
-            if(someCourse.equals(schedule[loopvar]))
-                return false;
-            numCourses++;
-        }
+        try {
+            int numCourses = 0;
+            for (int loopvar = 0; schedule[loopvar] != null; loopvar++) {
+                if (someCourse.equals(schedule[loopvar]))
+                    return false;
+                numCourses++;
+            }
 
-        schedule[numCourses] = someCourse;
-        return true;
+            schedule[numCourses] = someCourse;
+            System.out.println(Arrays.toString(schedule));
+//            System.out.println(numCourses+someCourse.courseTitle);
+            return true;
+        } catch(ArrayIndexOutOfBoundsException ex){
+            System.out.println("I'm a lost cause");
+            return false;
+        } catch (NullPointerException ex2){
+            System.out.println("I'm the idiot\n\t-Alex");
+            return false;
+        }
     }
     /* Removes course and returns true if successful.
      * Returns false if: course was not on student’s schedule.
@@ -114,7 +124,7 @@ public class Student implements Comparable<Student>{
         for(int loopvar=0;loopvar<schedule.length;loopvar++){
             if(someCourse.equals(schedule[loopvar])){
                 templist.remove(loopvar);
-                schedule=(Course[])templist.toArray();
+                schedule=templist.toArray(new Course[schedule.length]);
                 return true;
             }
 
@@ -123,4 +133,3 @@ public class Student implements Comparable<Student>{
 
     }
 }
-
